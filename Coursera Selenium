@@ -1,0 +1,321 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
+from selenium.common.exceptions import NoSuchElementException, WebDriverException
+import time
+import pandas as pd
+from selenium.webdriver.common.keys import Keys
+
+FIELD = input("Please Enter The Category You Would Like Me To Fetch !")
+SEARCH = FIELD.replace(" ", "%20")
+list_course_title = []
+list_course_organization = []
+list_course_description = []
+list_course_rating = []
+list_course_students_enrolled = []
+list_category_title = []
+
+
+def certificates():
+    course_title = driver.find_element(By.TAG_NAME, 'h1').text
+    time.sleep(1)
+    course_organizers = driver.find_element(By.XPATH,
+                                            '//*[@id="CertificateBanner"]/div[2]/div[2'
+                                            ']/div[1]/div/div/div/img').get_attribute('alt')
+    course_organizer_splitting = course_organizers.split('+')
+    course_organizer = course_organizer_splitting[0]
+    course_description = driver.find_element(By.XPATH, '//*[@id="CertificateBanner"]/div[2]/div[2]/div[1]/div/p').text
+    time.sleep(1)
+    course_rating = '-'
+    course_enrollment = '-'
+
+    list_course_title.append(course_title)
+    list_course_organization.append(course_organizer)
+    list_course_rating.append(course_rating)
+    list_course_students_enrolled.append(course_enrollment)
+    list_course_description.append(course_description)
+
+
+def degrees():
+    course_title = driver.find_element(By.TAG_NAME, 'h1').text
+    time.sleep(1)
+    course_organizer = driver.find_element(By.CLASS_NAME, 'partner-name').text
+    course_description = driver.find_element(By.XPATH, '//*[@id="main"]/div[3]/div[3]/div/div/div[1]').text
+    time.sleep(1)
+    course_rating = '-'
+    course_enrollment = '-'
+
+    list_course_title.append(course_title)
+    list_course_organization.append(course_organizer)
+    list_course_rating.append(course_rating)
+    list_course_students_enrolled.append(course_enrollment)
+    list_course_description.append(course_description)
+
+
+def mastertrack():
+    course_title = driver.find_element(By.TAG_NAME, 'h1').text
+    time.sleep(1)
+    course_organizer = driver.find_element(By.XPATH,
+                                           '//*[@id="CertificateBanner"]/div[2]/div[2'
+                                           ']/div[1]/div/div/div/img').get_attribute(
+        'alt')
+    course_description = driver.find_element(By.XPATH, '//*[@id="CertificateBanner"]/div[2]/div[2]/div[1]/div/p').text
+    time.sleep(1)
+    course_rating = '-'
+    course_enrollment = '-'
+
+    list_course_title.append(course_title)
+    list_course_organization.append(course_organizer)
+    list_course_rating.append(course_rating)
+    list_course_students_enrolled.append(course_enrollment)
+    list_course_description.append(course_description)
+
+
+def projects():
+    course_title = driver.find_element(By.TAG_NAME, 'h1').text
+    time.sleep(1)
+
+    try:
+        course_organizer = driver.find_element(By.XPATH,
+                                               '//*[@id="rendered-content"]/div/div/div[1]/div[4]/div['
+                                               '1]/div/div/div/div/div[1]/div[1]/div[2]/div/div['
+                                               '2]/img').get_attribute(
+            'alt')
+    except NoSuchElementException:
+        course_organizer = driver.find_element(By.XPATH,
+                                               '//*[@id="rendered-content"]/div/div/div[1]/div[4]/div['
+                                               '1]/div/div/div/div/div[1]/div[1]/div[2]/div/div/div/a/div/div').text
+    course_description = driver.find_element(By.XPATH,
+                                             '//*[@id="rendered-content"]/div/div/div[1]/div[5]/div/div/div/div['
+                                             '1]/div/div/p').text
+    time.sleep(1)
+
+    try:
+        course_ratings = driver.find_element(By.XPATH,
+                                             '//*[@id="rendered-content"]/div/div/div[1]/div[4]/div['
+                                             '1]/div/div/div/div/div[1]/div[1]/div[1]/div/div[1]/div[2]/p/span').text
+        course_rating_split = course_ratings.split(' ')
+        course_rating = course_rating_split[0]
+    except NoSuchElementException:
+        course_rating = '-'
+    course_enrollment = '-'
+
+    list_course_title.append(course_title)
+    list_course_organization.append(course_organizer)
+    list_course_rating.append(course_rating)
+    list_course_students_enrolled.append(course_enrollment)
+    list_course_description.append(course_description)
+
+
+def learn():
+    course_title = driver.find_element(By.TAG_NAME, 'h1').text
+    time.sleep(1)
+    course_organizer = driver.find_element(By.XPATH, '//*[@id="main"]/div[4]/div/div/div/a/div/div/span').text
+    course_description = driver.find_element(By.XPATH,
+                                             '//*[@id="main"]/div/div[2]/div/div/div/div[1]/div[2]/div/div/div').text
+    time.sleep(1)
+    course_rating = '-'
+    course_enrollment = '-'
+
+    list_course_title.append(course_title)
+    list_course_organization.append(course_organizer)
+    list_course_rating.append(course_rating)
+    list_course_students_enrolled.append(course_enrollment)
+    list_course_description.append(course_description)
+
+
+def specializations():
+    course_title = driver.find_element(By.TAG_NAME, 'h1').text
+    time.sleep(1)
+    course_organizers = driver.find_element(By.XPATH,
+                                            '//*[@id="main"]/div/div[1]/div[1]/div[1]/div[1]/div/div/div[1]/div['
+                                            '4]/div/div/div/a/div/div/span').text
+    course_organizer_splitting = course_organizers.split('+')
+    course_organizer = course_organizer_splitting[0]
+    time.sleep(1)
+    course_description = driver.find_element(By.CLASS_NAME, 'cmlToHtml-content-container').text
+    time.sleep(1)
+    try:
+        course_enrollments = driver.find_element(By.CLASS_NAME, '_1fpiay2').text
+        course_enrollments_split = course_enrollments.split(' ')
+        course_enrollment = course_enrollments_split[0]
+    except NoSuchElementException:
+        course_enrollment = '-'
+    try:
+        course_ratings = driver.find_element(By.XPATH,
+                                             '//*[@id="main"]/div/div[1]/div[1]/div[1]/div[1]/div/div/div[1]/div['
+                                             '3]/div/div/div/div/div[2]/span/span').text
+        course_rating_split = course_ratings.split(' ')
+        course_rating = course_rating_split[0]
+    except NoSuchElementException:
+        course_rating = '-'
+
+    list_course_title.append(course_title)
+    list_course_organization.append(course_organizer)
+    list_course_rating.append(course_rating)
+    list_course_students_enrolled.append(course_enrollment)
+    list_course_description.append(course_description)
+
+
+def professional_certificates():
+    course_title = driver.find_element(By.TAG_NAME, 'h1').text
+    time.sleep(1)
+
+    try:
+        course_organizers = driver.find_element(By.XPATH,
+                                                '//*[@id="main"]/div/div[1]/div[1]/div[1]/div[1]/div/div/div[1]/div['
+                                                '4]/div/div/div/a/div/div[1]/span').text
+        course_organizer_splitting = course_organizers.split('+')
+        course_organizer = course_organizer_splitting[0]
+        time.sleep(1)
+    except NoSuchElementException:
+        course_organizers = driver.find_element(By.XPATH,
+                                                '//*[@id="main"]/div/div[1]/div[1]/div/div/div/div['
+                                                '2]/div[1]/a/p/span').text
+        course_organizer_splitting = course_organizers.split(',')
+        course_organizer = course_organizer_splitting[0]
+    course_description = driver.find_element(By.CLASS_NAME, 'cmlToHtml-content-container').text
+    time.sleep(1)
+    try:
+        course_rating_and_enrollment = driver.find_element(By.XPATH,
+                                                           '//*[@id="main"]/div/div[1]/div[1]/div/div/div/div['
+                                                           '5]/div/div/div[1]/div[2]/p/span').text
+        course_rating_and_enrollment_splitting = course_rating_and_enrollment.split(' ')
+        course_rating_and_enrollment_splitting_1 = course_rating_and_enrollment_splitting[1].split('\n')
+        course_enrollment = course_rating_and_enrollment_splitting_1[1]
+        course_rating = course_rating_and_enrollment_splitting[0]
+
+    except NoSuchElementException:
+        course_ratings = driver.find_element(By.XPATH,
+                                             '//*[@id="main"]/div/div[1]/div[1]/div[1]/div[1]/div/div/div[1]/div['
+                                             '3]/div/div/div/div/div[2]/span/span').text
+        course_ratings_split = course_ratings.split(' ')
+        course_rating = course_ratings_split[0]
+        course_enrollment = '-'
+
+    list_course_title.append(course_title)
+    list_course_organization.append(course_organizer)
+    list_course_rating.append(course_rating)
+    list_course_students_enrolled.append(course_enrollment)
+    list_course_description.append(course_description)
+
+
+url = f'https://www.coursera.org/search?query={SEARCH}&page=1&index=prod_all_launched_products_term_optimization'
+s = Service(r'C:\THE LOCATION OF YOUR WEBDRIVER')
+driver = webdriver.Chrome(service=s)
+driver.get(url)
+p = driver.current_window_handle
+wait = WebDriverWait(driver, 10)
+print(f"Please Wait. We Are Searching For {FIELD} Courses.")
+for attempt in range(84):
+    time.sleep(3)
+    courses = driver.find_elements(By.CLASS_NAME, 'css-ilhc4l')
+    try:
+        for course in courses:
+            list_category_title.append(FIELD)
+            time.sleep(2)
+            course.click()
+            time.sleep(3)
+            chwd = driver.window_handles
+
+            for w in chwd:
+                if w != p:
+                    try:
+                        driver.switch_to.window(w)
+                        ec.presence_of_element_located((By.TAG_NAME, 'h1'))
+                        split_url = driver.current_url
+                        url_splitter = split_url.split('/')
+                        category = url_splitter[3]
+                        if category == 'professional-certificates':
+                            professional_certificates()
+                            driver.close()
+                            driver.switch_to.window(p)
+
+                        elif category == 'specializations':
+                            specializations()
+                            driver.close()
+                            driver.switch_to.window(p)
+
+                        elif category == 'learn':
+                            learn()
+                            driver.close()
+                            driver.switch_to.window(p)
+
+                        elif category == 'mastertrack':
+                            mastertrack()
+                            driver.close()
+                            driver.switch_to.window(p)
+
+                        elif category == 'projects':
+                            projects()
+                            driver.close()
+                            driver.switch_to.window(p)
+
+                        elif category == 'degrees':
+                            degrees()
+                            driver.close()
+                            driver.switch_to.window(p)
+
+                        elif category == 'certificates':
+                            certificates()
+                            driver.close()
+                            driver.switch_to.window(p)
+
+                        else:
+                            driver.close()
+                            driver.switch_to.window(p)
+                    except:
+                        driver.close()
+                        driver.switch_to.window(p)
+        wait.until(ec.element_to_be_clickable((By.XPATH, '//button[@aria-label = "Next Page"]'))).click()
+        time.sleep(5)
+    except WebDriverException:
+        print("Done! Please Hold Until We Generate Your Link")
+        break
+
+coursera_df = pd.DataFrame.from_dict(({
+    'Category Name': list_category_title,
+    'Course Name': list_course_title,
+    'First Instructor Name': list_course_organization,
+    'Course Description': list_course_description,
+    '# of Students Enrolled': list_course_students_enrolled,
+    '# of Rating': list_course_rating, }), orient='index')
+
+coursera_df = coursera_df.transpose()
+coursera_df.to_csv('COURSES.csv', index=False)
+
+time.sleep(10)
+
+new_url = "https://www.pythonanywhere.com/login/"
+driver.get(new_url)
+time.sleep(3)
+
+ACCOUNT_EMAIL = 'ACCOUNTEMAIL'
+ACCOUNT_PASSWORD = 'PASSWORD'
+LOCATION = 'YOUR FILE LOCATION'
+time.sleep(3)
+email_field = driver.find_element(By.ID, 'id_auth-username')
+email_field.send_keys(ACCOUNT_EMAIL)
+time.sleep(2)
+password_field = driver.find_element(By.ID, 'id_auth-password')
+password_field.send_keys(ACCOUNT_PASSWORD)
+time.sleep(2)
+password_field.send_keys(Keys.ENTER)
+time.sleep(2)
+driver.find_element(By.XPATH, '/html/body/div[1]/main/div/div[3]/div/div[2]/div/div/a').click()
+time.sleep(2)
+driver.find_element(By.XPATH, '//*[@id="id_upload_filename"]').send_keys(LOCATION)
+time.sleep(2)
+driver.find_element(By.XPATH, './/a[@title= "COURSES.csv"]').click()
+time.sleep(2)
+driver.find_element(By.XPATH, '//*[@id="id_display_sharing_options"]').click()
+time.sleep(2)
+driver.find_element(By.XPATH, '//*[@id="id_file_sharing_options"]/div/div[2]/div/button').click()
+time.sleep(2)
+link_generated = driver.find_element(By.XPATH,
+                                     '//*[@id="id_file_sharing_options"]/div/div[2]/div/div/input').get_attribute(
+    'value')
+print(f"Your link is ={link_generated}")
+driver.quit()
